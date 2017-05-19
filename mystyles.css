@@ -1,0 +1,19 @@
+.tdicon {
+  height: 48px;
+width: 48px;
+position: absolute;
+margin: 5px;
+padding: 3px;
+    right: 20px;
+background-color: #ffff66;
+border-radius: 5px;
+
+}
+
+.iconDiv {
+height: 0px
+width: auto;
+padding-top: -10px;
+overflow:auto;
+
+}

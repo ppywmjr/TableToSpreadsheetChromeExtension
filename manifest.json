@@ -1,0 +1,26 @@
+{
+  "name": "Table Downloader",
+  "description": "Click on a table to download as a spreadsheet",
+  "version": "2.0",
+  "permissions": [
+    "https://drive.google.com/",
+    "activeTab"
+  ],
+  "web_accessible_resources": [
+   "icon2.png"
+ ],
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+  "content_scripts": [{
+  "matches": ["<all_urls>"],
+  "css": ["mystyles.css"],
+  "js": ["content.js"]
+}],
+  "browser_action": {
+    "default_title": "Download a table as a spreadsheet",
+    "default_icon" : "icon2.png"
+  },
+  "manifest_version": 2
+}
