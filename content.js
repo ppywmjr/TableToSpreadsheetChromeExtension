@@ -1,4 +1,4 @@
-var originalTableColour;
+/*var originalTableColour;
 var orinigalTableHeaderColour;
 var highlighedColour = "#9cbd9a";
 var darkHighlightColour = "#79b076";
@@ -8,7 +8,7 @@ var table0 = nodeListOfTables[0];
 originalTableColour = table0.style.backgroundColor;
 orinigalTableHeaderColour = table0.getElementsByTagName("th")[0].style.backgroundColor;
 }
-
+*/
 function download(filename, text) {
     var element = document.createElement('a');
     element.setAttribute('href', 'data:text/plain;charset=utf-8,' + text);
@@ -18,9 +18,7 @@ function download(filename, text) {
     element.click();
     document.body.removeChild(element);
 }
-
-
-
+/*
 function darkenbackground(){
   this.style.backgroundColor = darkHighlightColour;
 }
@@ -37,7 +35,7 @@ function highlightElement(thisElement){
 function highlightTable(thisTable){
   highlightElement(thisTable);
 }
-
+*/
 function setUpTablesForDownload(myNodeList){
 var numberOfNodes = myNodeList.length;
 for (i = 0; i < numberOfNodes; i++) {
@@ -47,11 +45,11 @@ setUpOneTableForDownload(myTable);
 }
 
 function setUpOneTableForDownload(myTable){
-highlightElement(myTable);
+//highlightElement(myTable);
+//myTable.addEventListener("click", downloadTable, false);
+var oldHTML = myTable.outerHTML;
+myTable.outerHTML = '<div class="container">' + oldHTML + '<div class="overlay"><img src="chrome-extension://gcecjnpjjcknlgikoofhjoejegiffpdf/icon128.png" class="tdicon"></img></div></div>';
 myTable.addEventListener("click", downloadTable, false);
-var oldHTML = myTable.innerHTML;
-//myTable.innerHTML = "<a class='tdicon'>Helllloooooo</a>" + oldHTML;
-myTable.innerHTML = '<div class="iconDiv"> <img src="chrome-extension://dfjffkhngnglcjpjmcgbbebmakepdgak/icon2.png" class="tdicon"></img></div>' + oldHTML;
 }
 
 
@@ -72,11 +70,11 @@ setUpOneTableForNoDownload(myTable);
 
 function setUpOneTableForNoDownload(myTable){
 myTable.removeEventListener("click", downloadTable, false);
-myTable.removeEventListener("mouseover", darkenbackground, false);
-myTable.removeEventListener("mouseout", lightenBackground, false);
+//myTable.removeEventListener("mouseover", darkenbackground, false);
+//myTable.removeEventListener("mouseout", lightenBackground, false);
 }
 
-
+/*
 function setBackgroundColourByTag(tag, colour){
  var nodeListOfElements = document.getElementsByTagName(tag);
  var numberOfNodes = nodeListOfElements.length;
@@ -86,26 +84,23 @@ function setBackgroundColourByTag(tag, colour){
 //     highlightElement(thisChild);
 }
 }
-
+*/
 var nodeListOfTables = document.getElementsByTagName("table");
 
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
-    if (request.greeting == 0){
-        storeOringinalColours();
-}
-    if (request.greeting < 2){
-      setBackgroundColourByTag("th", "inherit");
-      setBackgroundColourByTag("tr", "inherit");
-      setBackgroundColourByTag("td", "inherit");
+    if (request.greeting == "turn on spreadsheet downloader"){
+//      setBackgroundColourByTag("th", "inherit");
+//      setBackgroundColourByTag("tr", "inherit");
+//      setBackgroundColourByTag("td", "inherit");
       setUpTablesForDownload(nodeListOfTables);
       sendResponse({farewell: "byebye"});
 return true;
 }
 else {
     setUpTablesForNoDownload(nodeListOfTables);
-    setBackgroundColourByTag("th", orinigalTableHeaderColour);
-    setBackgroundColourByTag("table", originalTableColour);
+//    setBackgroundColourByTag("th", orinigalTableHeaderColour);
+//    setBackgroundColourByTag("table", originalTableColour);
     sendResponse({farewell: "byebye"});
     return true;
 }
