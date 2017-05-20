@@ -1,8 +1,10 @@
-.tdicon {
+.tableDownloaderIcon {
   height: 48px;
 width: 48px;
 background-color: #ffffff;
 border-radius: 5px;
+border-width: 3px;
+border-color: #000000;
 position: absolute;
 top: 50%;
 left: 50%;
@@ -31,10 +33,12 @@ background color: #ffff66;
   transition: .5s ease;
   background-color: #79b076;
 }
-.container {
+.myContainer {
   position: relative;
+  height: 100%;
+  width: 100%;
 }
 
-.container:hover .overlay {
+.myContainer:hover .overlay {
   opacity: 0.9;
 }
