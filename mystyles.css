@@ -1,10 +1,11 @@
 .tableDownloaderIcon {
   height: 48px;
 width: 48px;
+border-style: solid;
 background-color: #ffffff;
 border-radius: 5px;
-border-width: 3px;
-border-color: #000000;
+border-width: 1px;
+border-color: #001100;
 position: absolute;
 top: 50%;
 left: 50%;
@@ -31,7 +32,7 @@ background color: #ffff66;
   width: 100%;
   opacity: 0.5;
   transition: .5s ease;
-  background-color: #79b076;
+  background-color: #075335 /*#02723B;#0F9D57;*/
 }
 .myContainer {
   position: relative;

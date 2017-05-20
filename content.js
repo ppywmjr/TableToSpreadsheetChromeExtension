@@ -4,22 +4,23 @@ var tablesHTMLArray = new Array();
 
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
-    if  (request.greeting == "set up spreadsheet downloader"){
-      console.log("runtime.onMessage.setup");
+    if  (request.greeting == "turn on spreadsheet downloader"){
+      console.log("runtime.onMessage.turnon");
       addContainersToTables();
       setUpTablesForDownload();
       sendResponse({farewell: "byebye"});
       return true;
     } else {}
-    if (request.greeting == "turn on spreadsheet downloader"){
+/*    if (request.greeting == "turn on spreadsheet downloader"){
       console.log("runtime.onMessage.turnon");
       setUpTablesForDownload();
       sendResponse({farewell: "byebye"});
       return true;
-    } else {}
+    } else {}*/
     if (request.greeting == "turn off spreadsheet downloader"){
-      setUpContainersForNoDownload();
       console.log("else");
+      removeEventListenersFromTables();
+      removeContainersFromTables();
       sendResponse({farewell: "byebye"});
       return true;
     } else {}
@@ -36,7 +37,6 @@ function addContainersToTables(){
     for (i = 0; i < numberOfTables; i++) {
       var thisTable = tablesArray[i];
       tablesHTMLArray[i] = thisTable.outerHTML;
-      console.log(tablesHTMLArray[i]);
       addContainerToOneTable(thisTable);
     }
 }
@@ -44,7 +44,6 @@ function addContainersToTables(){
 function addContainerToOneTable(thisTable){
       console.log("addContainerToOneTable");
     var thisTableOuterHTML = thisTable.outerHTML;
-    console.log(thisTableOuterHTML);
     thisTable.outerHTML = '<div class="myContainer">' + thisTableOuterHTML + '<div class="overlay"><img src="chrome-extension://fdocjokhcfnllccciekghidljpjgnjog/icon128.png" class="tableDownloaderIcon"></img></div></div>';
 }
 
@@ -76,16 +75,21 @@ function download(filename, text) {
     document.body.removeChild(element);
 }
 
-/*
-function setUpTablesForNoDownload(myNodeList){
-var numberOfNodes = myNodeList.length;
-for (i = 0; i < numberOfNodes; i++) {
-var myTable = myNodeList[i];
-setUpOneTableForNoDownload(myTable);
-}
-}
+function removeEventListenersFromTables() {
+    console.log("removeEventListenersFromTables");
+    var numberOfContainers = containersArray.length;
+    for (i = 0; i < numberOfContainers; i++) {
+        var thisContainer = containersArray[i];
+        thisContainer.removeEventListener("click", function(){downloadTable(tableHTML);}, false);
+        console.log(String(i));
+    }}
 
-function setUpOneTableForNoDownload(myTable){
-myTable.removeEventListener("click", downloadTable, false);
+function removeContainersFromTables(){
+    console.log("removeContainersFromTables");
+    var numberOfContainers = containersArray.length;
+    for (i = 0; i < numberOfContainers; i++) {
+        var thisContainer = containersArray[0];
+        thisContainer.outerHTML = tablesHTMLArray[i];
+        console.log(String(i));
+    }
 }
-*/
