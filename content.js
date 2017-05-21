@@ -7,29 +7,18 @@ chrome.runtime.onMessage.addListener(
     if  (request.greeting == "turn on spreadsheet downloader"){
       console.log("runtime.onMessage.turnon");
       addContainersToTables();
-      setUpTablesForDownload();
+      addEventListenersToContainers();
       sendResponse({farewell: "byebye"});
       return true;
     } else {}
-/*    if (request.greeting == "turn on spreadsheet downloader"){
-      console.log("runtime.onMessage.turnon");
-      setUpTablesForDownload();
-      sendResponse({farewell: "byebye"});
-      return true;
-    } else {}*/
     if (request.greeting == "turn off spreadsheet downloader"){
       console.log("else");
-      removeEventListenersFromTables();
+      removeEventListenersFromContainers();
       removeContainersFromTables();
       sendResponse({farewell: "byebye"});
       return true;
     } else {}
 });
-
-function setUpTablesForDownload(){
-      console.log("setUpTablesForDownload");
-    addEventListenersToContainers();
-}
 
 function addContainersToTables(){
       console.log("addContainersToTables");
@@ -44,24 +33,23 @@ function addContainersToTables(){
 function addContainerToOneTable(thisTable){
       console.log("addContainerToOneTable");
     var thisTableOuterHTML = thisTable.outerHTML;
-    thisTable.outerHTML = '<div class="myContainer">' + thisTableOuterHTML + '<div class="overlay"><img src="chrome-extension://fdocjokhcfnllccciekghidljpjgnjog/icon128.png" class="tableDownloaderIcon"></img></div></div>';
+    thisTable.outerHTML = '<div class="myTableDownloaderContainer">' + thisTableOuterHTML + '<div class="myTableDownloaderOverlay"><img src="chrome-extension://gcecjnpjjcknlgikoofhjoejegiffpdf/icon128.png" class="tableDownloaderIcon"></img></div></div>';
 }
 
 function addEventListenersToContainers(){
     console.log("addEventListenersToContainers");
-    containersArray = document.getElementsByClassName("myContainer");
+    containersArray = document.getElementsByClassName("myTableDownloaderContainer");
     var numberOfContainers = containersArray.length;
     for (i = 0; i < numberOfContainers; i++) {
       var thisContainer = containersArray[i];
-      var tableHTML = tablesHTMLArray[i];
-      thisContainer.addEventListener("click", function(){downloadTable(tableHTML);}, false);
+      thisContainer.onclick = function(){downloadTable(this)};
     }
 }
 
-function downloadTable(tableHTML){
-        console.log("downloadTable");
+function downloadTable(thisContainer){
+    var thisContainerInnerHTML = thisContainer.innerHTML;
     var filename = "table download.xls";
-    download(filename, tableHTML);
+    download(filename, thisContainerInnerHTML);
 }
 
 function download(filename, text) {
@@ -75,14 +63,15 @@ function download(filename, text) {
     document.body.removeChild(element);
 }
 
-function removeEventListenersFromTables() {
-    console.log("removeEventListenersFromTables");
+function removeEventListenersFromContainers(){
+    console.log("addEventListenersToContainers");
+    containersArray = document.getElementsByClassName("myTableDownloaderContainer");
     var numberOfContainers = containersArray.length;
     for (i = 0; i < numberOfContainers; i++) {
-        var thisContainer = containersArray[i];
-        thisContainer.removeEventListener("click", function(){downloadTable(tableHTML);}, false);
-        console.log(String(i));
-    }}
+      var thisContainer = containersArray[i];
+      thisContainer.onclick = function(){};
+    }
+}
 
 function removeContainersFromTables(){
     console.log("removeContainersFromTables");
@@ -90,6 +79,5 @@ function removeContainersFromTables(){
     for (i = 0; i < numberOfContainers; i++) {
         var thisContainer = containersArray[0];
         thisContainer.outerHTML = tablesHTMLArray[i];
-        console.log(String(i));
     }
 }

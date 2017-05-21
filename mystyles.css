@@ -10,7 +10,6 @@ position: absolute;
 top: 50%;
 left: 50%;
 transform: translate(-50%, -50%);
--ms-transform: translate(-50%, -50%);
 }
 /*
 .iconDiv {
@@ -22,24 +21,29 @@ background color: #ffff66;
 
 }
 */
-.overlay {
+.myTableDownloaderOverlay {
   position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  opacity: 0.4;
+   height: 100%;
+  width: 100%;
+  background-color: #075335;
+ /*#02723B;#0F9D57;*/
+}
+.myTableDownloaderContainer {
+  position: relative;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
   height: 100%;
   width: 100%;
-  opacity: 0.5;
   transition: .5s ease;
-  background-color: #075335 /*#02723B;#0F9D57;*/
-}
-.myContainer {
-  position: relative;
-  height: 100%;
-  width: 100%;
 }
 
-.myContainer:hover .overlay {
+.myTableDownloaderContainer:hover .myTableDownloaderOverlay{
   opacity: 0.9;
 }
