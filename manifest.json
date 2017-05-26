@@ -1,7 +1,7 @@
 {
   "name": "Table Downloader",
   "description": "Click on a table to download it as a spreadsheet.",
-  "version": "0.0.0.3",
+  "version": "0.1.0.0",
   "permissions": [
     "activeTab"
   ],
@@ -18,7 +18,7 @@
   "js": ["content.js"]
 }],
   "browser_action": {
-    "default_title": "Download a table as a spreadsheet",
+    "default_title": "Click on a table to download it as a spreadsheet.",
     "default_icon" : "icon128.png"
   },
   "icons" : {
