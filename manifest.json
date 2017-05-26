@@ -1,7 +1,7 @@
 {
   "name": "Table Downloader",
   "description": "Click on a table to download it as a spreadsheet.",
-  "version": "1.0",
+  "version": "0.0.0.3",
   "permissions": [
     "activeTab"
   ],

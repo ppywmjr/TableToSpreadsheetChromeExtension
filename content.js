@@ -33,7 +33,7 @@ function addContainersToTables(){
 function addContainerToOneTable(thisTable){
       console.log("addContainerToOneTable");
     var thisTableOuterHTML = thisTable.outerHTML;
-    thisTable.outerHTML = '<div class="myTableDownloaderContainer">' + thisTableOuterHTML + '<div class="myTableDownloaderOverlay"><img src="chrome-extension://gcecjnpjjcknlgikoofhjoejegiffpdf/icon128.png" class="tableDownloaderIcon"></img></div></div>';
+    thisTable.outerHTML = '<div class="myTableDownloaderContainer">' + thisTableOuterHTML + '<div class="myTableDownloaderOverlay"><img src="chrome-extension://jdbiladlfhcgnklahgnenjmbgelofocn/icon128.png" class="tableDownloaderIcon"></img></div></div>';
 }
 
 function addEventListenersToContainers(){
