@@ -4,20 +4,20 @@ var tablesHTMLArray = new Array();
 
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
-    if  (request.greeting == "turn on spreadsheet downloader"){
+    var isThePageSetUpForDownloading = document.getElementsByClassName("myTableDownloaderContainer").length;  // the value of this will be 0 if the page isn't set up
+    if  (isThePageSetUpForDownloading == 0){
       console.log("runtime.onMessage.turnon");
       addContainersToTables();
       addEventListenersToContainers();
       sendResponse({farewell: "byebye"});
       return true;
-    } else {}
-    if (request.greeting == "turn off spreadsheet downloader"){
+    } else {
       console.log("else");
       removeEventListenersFromContainers();
       removeContainersFromTables();
       sendResponse({farewell: "byebye"});
       return true;
-    } else {}
+    }
 });
 
 function addContainersToTables(){
@@ -33,7 +33,7 @@ function addContainersToTables(){
 function addContainerToOneTable(thisTable){
       console.log("addContainerToOneTable");
     var thisTableOuterHTML = thisTable.outerHTML;
-    thisTable.outerHTML = '<div class="myTableDownloaderContainer">' + thisTableOuterHTML + '<div class="myTableDownloaderOverlay"><img src="chrome-extension://gcecjnpjjcknlgikoofhjoejegiffpdf/icon128.png" class="tableDownloaderIcon"></img></div></div>';
+    thisTable.outerHTML = '<div class="myTableDownloaderContainer">' + thisTableOuterHTML + '<div class="myTableDownloaderOverlay"><img src="chrome-extension://jdbiladlfhcgnklahgnenjmbgelofocn/icon128.png" class="tableDownloaderIcon"></img></div></div>';
 }
 
 function addEventListenersToContainers(){
