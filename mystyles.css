@@ -7,6 +7,7 @@ border-width: 0px;
 /*border-color: #001100;*/
 position: absolute;
 top: 50%;
+max-top: ;
 left: 50%;
 transform: translate(-50%, -50%);
 z-index: 1;
@@ -16,35 +17,29 @@ z-index: 1;
   height: 12px;
 width: 12px;
 border-style: solid;
-border-radius: 0px;
-border-width: 0px;
+border-radius: 6px;
+border-width: 1px;
+border-color: transparent;
 position: absolute;
-top: 8px;
-right: 8px;
-/*transform: translate(-50%, -50%);*/
+top: 0px;
+right: 0px;
 z-index: 10;
 }
-
-/*
-.iconDiv {
-height: 0px
-width: auto;
-padding-top: -10px;
-overflow:auto;
-background color: #ffff66;
-
+.cancelCross:hover{
+background-color: white;
+border-color: white;
+z-index: 20;
 }
-*/
+
 .myTableDownloaderOverlay {
   position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
-  opacity: 0.4;
    height: 100%;
   width: 100%;
-  background-color: #075335;
+  background-color: rgba(117,187,125, 0.8);
  /*#02723B;#0F9D57;*/
  z-index: 5;
   transition: .5s ease;
@@ -59,8 +54,10 @@ background color: #ffff66;
   width: 100%;
   transition: .5s ease;
   z-index: 0;
+
 }
 
-.myTableDownloaderContainer:hover .myTableDownloaderOverlay{
-  opacity: 0.9;
+.myTableDownloaderContainer .myTableDownloaderOverlay:hover {
+  background-color: rgba(35,124,78, 0.9);
+
 }
