@@ -1,8 +1,7 @@
 .tableDownloaderIcon {
-  height: 48px;
-width: 48px;
+  max-height: 48px;
+max-width: 48px;
 border-style: solid;
-background-color: #ffffff;
 border-radius: 0px;
 border-width: 0px;
 /*border-color: #001100;*/
@@ -12,6 +11,7 @@ left: 50%;
 transform: translate(-50%, -50%);
 z-index: 1;
 }
+
 .cancelCross{
   height: 12px;
 width: 12px;
@@ -21,7 +21,7 @@ border-width: 0px;
 position: absolute;
 top: 8px;
 right: 8px;
-transform: translate(-50%, -50%);
+/*transform: translate(-50%, -50%);*/
 z-index: 10;
 }
 
@@ -47,6 +47,7 @@ background color: #ffff66;
   background-color: #075335;
  /*#02723B;#0F9D57;*/
  z-index: 5;
+  transition: .5s ease;
 }
 .myTableDownloaderContainer {
   position: relative;
@@ -57,6 +58,7 @@ background color: #ffff66;
   height: 100%;
   width: 100%;
   transition: .5s ease;
+  z-index: 0;
 }
 
 .myTableDownloaderContainer:hover .myTableDownloaderOverlay{
