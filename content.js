@@ -38,6 +38,13 @@ function addContainersToTables(){
         $(value).append('<div class="myTableDownloaderOverlay"></div>');
       });
 }
+
+
+function removeThisEventListenerAndOverlay(){
+  console.log("clicked cross");
+//  $(this).hide();
+}
+
 function addImagesToOverlays(){
       console.log("addImagesToOverlays");
       $(".myTableDownloaderOverlay").each(function (index, value){
@@ -53,7 +60,15 @@ function addEventListenersToContainers(){
         downloadTable(this)
       });
     });
-  }
+    $('.cancelCross').each(function(index, value){
+        $(value).click(function(){
+    //      this.parentNode.parentNode.removeChild(this.parentNode);
+          $(this).parent().hide();
+          $(this).parent().parent().off( "click" );
+        return false;
+        });
+    });
+}
 
 function downloadTable(thisContainer){
     var thisContainerInnerHTML = thisContainer.innerHTML;
