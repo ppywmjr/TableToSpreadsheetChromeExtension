@@ -6,7 +6,9 @@
     "activeTab"
   ],
   "web_accessible_resources": [
-   "icon128.png"
+    "iconWithWhiteBorder.png",
+   "icon128.png",
+   "cancelCross.png"
   ],
   "background": {
     "scripts": ["background.js"],
