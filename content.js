@@ -1,49 +1,73 @@
-var tablesArray = document.getElementsByTagName("table");
-var containersArray = new Array();
-var tablesHTMLArray = new Array();
+var tablesArray = $("table");
+var onOffState = "initial";
 
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
-    var isThePageSetUpForDownloading = document.getElementsByClassName("myTableDownloaderContainer").length;  // the value of this will be 0 if the page isn't set up
-    if  (isThePageSetUpForDownloading == 0){
-      console.log("runtime.onMessage.turnon");
-      addContainersToTables();
-      addEventListenersToContainers();
-      sendResponse({farewell: "byebye"});
-      return true;
-    } else {
-      console.log("else");
-      removeEventListenersFromContainers();
-      removeContainersFromTables();
-      sendResponse({farewell: "byebye"});
-      return true;
-    }
+
+  switch(onOffState) {
+      default :
+        console.log("runtime.onMessage.initialise");
+        addContainersToTables();
+        addImagesToOverlays();
+        addEventListenersToContainers();
+        onOffState = "on";
+        sendResponse({farewell: "byebye"});
+        return true;
+          break;
+      case "on" :
+        $(".myTableDownloaderOverlay").hide();
+        removeEventListenersFromContainers();
+        onOffState = "off"
+        sendResponse({farewell: "byebye"});
+        return true;
+          break;
+      case "off" :
+        $(".myTableDownloaderOverlay").show();
+        addEventListenersToContainers();
+        onOffState = "on";
+        sendResponse({farewell: "byebye"});
+        return true;
+            break;
+  }
 });
 
 function addContainersToTables(){
       console.log("addContainersToTables");
-    var numberOfTables = tablesArray.length;
-    for (i = 0; i < numberOfTables; i++) {
-      var thisTable = tablesArray[i];
-      tablesHTMLArray[i] = thisTable.outerHTML;
-      addContainerToOneTable(thisTable);
-    }
+      $('table').each(function (index, value){
+        $(value).wrap('<div class="myTableDownloaderContainer"></div>');
+        $(value).append('<div class="myTableDownloaderOverlay"></div>');
+      });
 }
 
-function addContainerToOneTable(thisTable){
-      console.log("addContainerToOneTable");
-    var thisTableOuterHTML = thisTable.outerHTML;
-    thisTable.outerHTML = '<div class="myTableDownloaderContainer">' + thisTableOuterHTML + '<div class="myTableDownloaderOverlay"><img src="chrome-extension://jdbiladlfhcgnklahgnenjmbgelofocn/icon128.png" class="tableDownloaderIcon"></img><img src="chrome-extension://jdbiladlfhcgnklahgnenjmbgelofocn/cancelCross.png" class="cancelCross"></img></div></div>';
+
+function removeThisEventListenerAndOverlay(){
+  console.log("clicked cross");
+//  $(this).hide();
+}
+
+function addImagesToOverlays(){
+      console.log("addImagesToOverlays");
+      $(".myTableDownloaderOverlay").each(function (index, value){
+        $(value).append('<img src="chrome-extension://koiahfpffkbjimlddagiikgbfgnbfifb/iconWithWhiteBorder.png" class="tableDownloaderIcon"></img>');
+        $(value).append('<img src="chrome-extension://koiahfpffkbjimlddagiikgbfgnbfifb/cancelCross.png" class="cancelCross"></img>');
+      });
 }
 
 function addEventListenersToContainers(){
     console.log("addEventListenersToContainers");
-    containersArray = document.getElementsByClassName("myTableDownloaderContainer");
-    var numberOfContainers = containersArray.length;
-    for (i = 0; i < numberOfContainers; i++) {
-      var thisContainer = containersArray[i];
-      thisContainer.onclick = function(){downloadTable(this)};
-    }
+    $(".myTableDownloaderContainer").each(function (index, value){
+      $(value).click(function(){
+        downloadTable(this)
+      });
+    });
+    $('.cancelCross').each(function(index, value){
+        $(value).click(function(){
+    //      this.parentNode.parentNode.removeChild(this.parentNode);
+          $(this).parent().hide();
+          $(this).parent().parent().off( "click" );
+        return false;
+        });
+    });
 }
 
 function downloadTable(thisContainer){
@@ -64,20 +88,8 @@ function download(filename, text) {
 }
 
 function removeEventListenersFromContainers(){
-    console.log("addEventListenersToContainers");
-    containersArray = document.getElementsByClassName("myTableDownloaderContainer");
-    var numberOfContainers = containersArray.length;
-    for (i = 0; i < numberOfContainers; i++) {
-      var thisContainer = containersArray[i];
-      thisContainer.onclick = function(){};
-    }
-}
-
-function removeContainersFromTables(){
-    console.log("removeContainersFromTables");
-    var numberOfContainers = containersArray.length;
-    for (i = 0; i < numberOfContainers; i++) {
-        var thisContainer = containersArray[0];
-        thisContainer.outerHTML = tablesHTMLArray[i];
-    }
+  console.log("removeEventListenersFromContainers");
+  $(".myTableDownloaderContainer").each(function (index, value){
+  $( value ).off( "click" );
+  });
 }
